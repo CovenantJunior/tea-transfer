@@ -244,7 +244,7 @@
                     <label for="youSend">You Send</label>
                     <div class="input-group">
                       <div class="input-group-prepend"> <span class="input-group-text">$</span> </div>
-                      <input type="number" step="0.000000001" class="form-control" data-bv-field="youSend" id="youSend" placeholder="0">
+                      <input type="number" step="0.01" class="form-control" data-bv-field="youSend" id="youSend" placeholder="0">
                       <div class="input-group-append"> <span class="input-group-text p-0">
                         <select id="youSendCurrency" data-style="custom-select bg-transparent border-0" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent" required="">
                           <optgroup label="Popular Currency">
@@ -311,7 +311,7 @@
                     <label for="recipientGets">Recipient Gets</label>
                     <div class="input-group">
                       <div class="input-group-prepend"> <span class="input-group-text">$</span> </div>
-                      <input type="number" step="0.000000001" class="form-control" data-bv-field="recipientGets" id="recipientGets" placeholder="0">
+                      <input type="number" step="0.01" class="form-control" data-bv-field="recipientGets" id="recipientGets" placeholder="0">
                       <div class="input-group-append"> <span class="input-group-text p-0">
                         <select id="recipientCurrency" data-style="custom-select bg-transparent border-0" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent" required="">
                           <optgroup label="Popular Currency">
@@ -901,7 +901,7 @@
                     <label for="wantTorequest">I want to request</label>
                     <div class="input-group">
                       <div class="input-group-prepend"> <span class="input-group-text">$</span> </div>
-                      <input type="number" step="0.000000001" class="form-control" data-bv-field="wantTorequest" id="wantTorequest" placeholder="0">
+                      <input type="number" step="0.01" class="form-control" data-bv-field="wantTorequest" id="wantTorequest" placeholder="0">
                       <div class="input-group-append"> <span class="input-group-text p-0">
                         <select id="wantToCurrency" data-style="custom-select bg-transparent border-0" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent" required="">
                           <optgroup label="Popular Currency">
@@ -1245,11 +1245,14 @@
               conversion_rate= data["conversion_rates"];
               console.log(conversion_rate);
               console.log(conversion_rate[exchange]);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+
+              var power = Math.pow(10, 2);
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
-              $('#recipientGets').val(amount*rate)}, 1000);
+              var power = Math.pow(10, 2);
+              $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
             $('.optgroup-1').off();
           }, 1000);
         });
@@ -1269,11 +1272,14 @@
                 conversion_rate= data["conversion_rates"];
                 console.log(conversion_rate);
                 console.log(conversion_rate[exchange]);
-                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+
+                var power = Math.pow(10, 2);
+                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
               });
               setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
-              $('#recipientGets').val(amount*rate)}, 1000);
+              var power = Math.pow(10, 2);
+              $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
               $('.optgroup-2').off();
             }, 1000);
           });
@@ -1296,11 +1302,14 @@
               conversion_rate= data["conversion_rates"];
               console.log(conversion_rate);
               console.log(conversion_rate[exchange]);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+
+              var power = Math.pow(10, 2);
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
-            $('#youSend').val(amount/rate)}, 1000);
+            var power = Math.pow(10, 2);
+            $('#youSend').val(Math.round((amount/rate) * power)/power)}, 1000);
             $('.optgroup-1').off();
           }, 1000);
         });
@@ -1320,11 +1329,14 @@
               conversion_rate= data["conversion_rates"];
               console.log(conversion_rate);
               console.log(conversion_rate[exchange]);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+
+              var power = Math.pow(10, 2);
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
-            $('#youSend').val(amount/rate)}, 1000);
+            var power = Math.pow(10, 2);
+            $('#youSend').val(Math.round((amount/rate) * power)/power)}, 1000);
             $('.optgroup-2').off();
           }, 1000);
         });
@@ -1337,6 +1349,9 @@
     var rate = parseFloat($('#rate').html());
     var value = amount*rate;
     if (isNaN(value)) {value = 0} else {value = value}
+
+    var power = Math.pow(10, 2);
+    value = Math.round(value * power) / power;
     $('#recipientGets').val(value);
     //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
@@ -1345,6 +1360,9 @@
     var rate = parseFloat($('#rate').html());
     var value = amount/rate;
     if (isNaN(value)) {value = 0} else {value = value}
+
+    var power = Math.pow(10, 2);
+    value = Math.round(value * power) / power;
     $('#youSend').val(value);
     //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
@@ -1364,7 +1382,9 @@
     conversion_rate= data["conversion_rates"];
     console.log(conversion_rate);
     console.log(conversion_rate[exchange]);
-    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+
+    var power = Math.pow(10, 2);
+    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
   });
 </script>
 </body>
