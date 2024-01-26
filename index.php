@@ -315,7 +315,7 @@
                       <div class="input-group-append"> <span class="input-group-text p-0">
                         <select id="recipientCurrency" data-style="custom-select bg-transparent border-0" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent" required="">
                           <optgroup label="Popular Currency">
-                          <option data-icon="currency-flag currency-flag-ngn mr-1" data-subtext="Nigerian naira" selected="selected" value="">NGN</option>
+                          <option data-icon="currency-flag currency-flag-gbp mr-1" data-subtext="British pound" selected="selected" value="">GBP</option>
                           <option data-icon="currency-flag currency-flag-usd mr-1" data-subtext="United States dollar" value="">USD</option>
                           <option data-icon="currency-flag currency-flag-eur mr-1" data-subtext="Euro" value="">EUR</option>
                           </optgroup>
