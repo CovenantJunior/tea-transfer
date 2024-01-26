@@ -250,7 +250,7 @@
                           <optgroup label="Popular Currency">
                           <option data-icon="currency-flag currency-flag-usd mr-1" data-subtext="United States dollar" selected="selected" value="">USD</option>
                           <option data-icon="currency-flag currency-flag-eur mr-1" data-subtext="Euro" value="">EUR</option>
-                          <option data-icon="currency-flag currency-flag-ngn mr-1" data-subtext="Nigerian naira" value="">NGN</option>
+                          <option data-icon="currency-flag currency-flag-gbp mr-1" data-subtext="Nigerian naira" value="">GBP</option>
                           </optgroup>
                           <option data-divider="true"></option>
                           <optgroup label="Other Currency">
