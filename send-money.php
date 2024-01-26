@@ -250,7 +250,7 @@
                       <optgroup label="Popular Currency">
                       <option data-icon="currency-flag currency-flag-usd mr-1" data-subtext="United States dollar" selected="selected" value="">USD</option>
                       <option data-icon="currency-flag currency-flag-eur mr-1" data-subtext="Euro" value="">EUR</option>
-                      <option data-icon="currency-flag currency-flag-ngn mr-1" data-subtext="Nigerian naira" value="">NGN</option>
+                      <option data-icon="currency-flag currency-flag-gbp mr-1" data-subtext="British pound" value="">GBP</option>
 					  </optgroup>
                       <option value="" data-divider="true">divider</option>
                       <optgroup label="Other Currency">
@@ -315,7 +315,7 @@
                   <div class="input-group-append"> <span class="input-group-text p-0">
                     <select id="recipientCurrency" data-style="custom-select bg-transparent border-0" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent" required="">
                       <optgroup label="Popular Currency">
-                      <option data-icon="currency-flag currency-flag-ngn mr-1" data-subtext="Nigerian naira" selected="selected" value="">NGN</option>
+                      <option data-icon="currency-flag currency-flag-gbp mr-1" data-subtext="British pound" selected="selected" value="">GBP</option>
                       <option data-icon="currency-flag currency-flag-usd mr-1" data-subtext="United States dollar" value="">USD</option>
                       <option data-icon="currency-flag currency-flag-eur mr-1" data-subtext="Euro" value="">EUR</option>
                       </optgroup>
@@ -461,19 +461,22 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              // console.log(response);
+              console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              // console.log(conversion_rate);
-              // console.log(conversion_rate[exchange]);
+              console.log(conversion_rate);
+              console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
               var power = Math.pow(10, 2);
               $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
+
+              var power = Math.pow(10, 2);
+              $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
             $('.optgroup-1').off();
           }, 1000);
         });
@@ -488,19 +491,22 @@
                 "method": "GET"
               };
               $.ajax(settings).done(function (response) {
-                // console.log(response);
+                console.log(response);
                 data = response;
                 conversion_rate= data["conversion_rates"];
-                // console.log(conversion_rate);
-                // console.log(conversion_rate[exchange]);
+                console.log(conversion_rate);
+                console.log(conversion_rate[exchange]);
 
                 var power = Math.pow(10, 2);
-                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
               });
               setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
               var power = Math.pow(10, 2);
               $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
+
+              var power = Math.pow(10, 2);
+              $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
               $('.optgroup-2').off();
             }, 1000);
           });
@@ -518,14 +524,14 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              // console.log(response);
+              console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              // console.log(conversion_rate);
-              // console.log(conversion_rate[exchange]);
+              console.log(conversion_rate);
+              console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
@@ -545,14 +551,14 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              // console.log(response);
+              console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              // console.log(conversion_rate);
-              // console.log(conversion_rate[exchange]);
+              console.log(conversion_rate);
+              console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
@@ -565,15 +571,33 @@
   }, 1000);
 </script>
 <script type="text/javascript">
+  /*
+  $('#youSend').on('change', function(){
+    $('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+parseFloat($('#youSend').val())+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
+    var amount = $('#youSend').val();
+    var rate = parseFloat($('#rate').html());
+    $('#recipientGets').val(Math.round((amount*rate) * power)/power)
+  });
+  
+  $('#recipientGets').on('change', function(){
+    var amount = $('#recipientGets').val();
+    var rate = parseFloat($('#rate').html());
+    $('#youSend').val(amount/rate)
+    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
+  });
+  */
   $('#youSend').on('input', function(){
+    var power = Math.pow(10, 2);
+    $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
     var amount = parseFloat($('#youSend').val());
     var rate = parseFloat($('#rate').html());
     var value = amount*rate;
     if (isNaN(value)) {value = 0} else {value = value}
 
-    // var power = Math.pow(10, 2);
-    // value = Math.round(value * power) / power;
+    var power = Math.pow(10, 2);
+    value = Math.round(value * power) / power;
     $('#recipientGets').val(value);
+    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
   $('#recipientGets').on('input', function(){
     var amount = parseFloat($('#recipientGets').val());
@@ -581,9 +605,10 @@
     var value = amount/rate;
     if (isNaN(value)) {value = 0} else {value = value}
 
-    // var power = Math.pow(10, 2);
-    // value = Math.round(value * power) / power;
+    var power = Math.pow(10, 2);
+    value = Math.round(value * power) / power;
     $('#youSend').val(value);
+    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
 </script>
 <script type="text/javascript">
@@ -596,14 +621,14 @@
     "method": "GET"
   };
   $.ajax(settings).done(function (response) {
-    // console.log(response);
+    console.log(response);
     data = response;
-    conversion_rate = data["conversion_rates"];
-    // console.log(conversion_rate);
-    // console.log(conversion_rate[exchange]);
+    conversion_rate= data["conversion_rates"];
+    console.log(conversion_rate);
+    console.log(conversion_rate[exchange]);
 
     var power = Math.pow(10, 2);
-    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
+    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
   });
 </script>
 <script type="text/javascript">
@@ -662,6 +687,9 @@
       })
     }
   })
+</script>
+<script type="text/javascript">
+  $(document).ready( function () {$('html').find('a[title="Free Web Hosting with PHP5 or PHP7"]').html('');});
 </script>
 </body>
 </html>
