@@ -461,22 +461,19 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              console.log(response);
+              // console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              console.log(conversion_rate);
-              console.log(conversion_rate[exchange]);
+              // console.log(conversion_rate);
+              // console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
               var power = Math.pow(10, 2);
               $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
-
-              var power = Math.pow(10, 2);
-              $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
             $('.optgroup-1').off();
           }, 1000);
         });
@@ -491,22 +488,19 @@
                 "method": "GET"
               };
               $.ajax(settings).done(function (response) {
-                console.log(response);
+                // console.log(response);
                 data = response;
                 conversion_rate= data["conversion_rates"];
-                console.log(conversion_rate);
-                console.log(conversion_rate[exchange]);
+                // console.log(conversion_rate);
+                // console.log(conversion_rate[exchange]);
 
                 var power = Math.pow(10, 2);
-                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
+                $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
               });
               setTimeout(function(){var amount = $('#youSend').val();
               var rate = parseFloat($('#rate').html());
               var power = Math.pow(10, 2);
               $('#recipientGets').val(Math.round((amount*rate) * power)/power)}, 1000);
-
-              var power = Math.pow(10, 2);
-              $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
               $('.optgroup-2').off();
             }, 1000);
           });
@@ -524,14 +518,14 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              console.log(response);
+              // console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              console.log(conversion_rate);
-              console.log(conversion_rate[exchange]);
+              // console.log(conversion_rate);
+              // console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
@@ -551,14 +545,14 @@
               "method": "GET"
             };
             $.ajax(settings).done(function (response) {
-              console.log(response);
+              // console.log(response);
               data = response;
               conversion_rate= data["conversion_rates"];
-              console.log(conversion_rate);
-              console.log(conversion_rate[exchange]);
+              // console.log(conversion_rate);
+              // console.log(conversion_rate[exchange]);
 
               var power = Math.pow(10, 2);
-              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
+              $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
             });
             setTimeout(function(){var amount = $('#recipientGets').val();
             var rate = parseFloat($('#rate').html());
@@ -571,33 +565,15 @@
   }, 1000);
 </script>
 <script type="text/javascript">
-  /*
-  $('#youSend').on('change', function(){
-    $('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+parseFloat($('#youSend').val())+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
-    var amount = $('#youSend').val();
-    var rate = parseFloat($('#rate').html());
-    $('#recipientGets').val(Math.round((amount*rate) * power)/power)
-  });
-  
-  $('#recipientGets').on('change', function(){
-    var amount = $('#recipientGets').val();
-    var rate = parseFloat($('#rate').html());
-    $('#youSend').val(amount/rate)
-    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
-  });
-  */
   $('#youSend').on('input', function(){
-    var power = Math.pow(10, 2);
-    $('#total').html(Math.round($('#youSend').val()*conversion_rate["USD"] * power) / power);
     var amount = parseFloat($('#youSend').val());
     var rate = parseFloat($('#rate').html());
     var value = amount*rate;
     if (isNaN(value)) {value = 0} else {value = value}
 
-    var power = Math.pow(10, 2);
-    value = Math.round(value * power) / power;
+    // var power = Math.pow(10, 2);
+    // value = Math.round(value * power) / power;
     $('#recipientGets').val(value);
-    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
   $('#recipientGets').on('input', function(){
     var amount = parseFloat($('#recipientGets').val());
@@ -605,15 +581,14 @@
     var value = amount/rate;
     if (isNaN(value)) {value = 0} else {value = value}
 
-    var power = Math.pow(10, 2);
-    value = Math.round(value * power) / power;
+    // var power = Math.pow(10, 2);
+    // value = Math.round(value * power) / power;
     $('#youSend').val(value);
-    //$('#payout').html('<p class="font-weight-500">Total To Pay <span class="text-3 float-right">'+$('#youSend').val()+' '+$('button[data-id="youSendCurrency"]').attr('title')+'</span></p>');
   });
 </script>
 <script type="text/javascript">
   var base = "USD";
-  var exchange = "NGN";
+  var exchange = "GBP";
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -621,14 +596,14 @@
     "method": "GET"
   };
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    // console.log(response);
     data = response;
-    conversion_rate= data["conversion_rates"];
-    console.log(conversion_rate);
-    console.log(conversion_rate[exchange]);
+    conversion_rate = data["conversion_rates"];
+    // console.log(conversion_rate);
+    // console.log(conversion_rate[exchange]);
 
     var power = Math.pow(10, 2);
-    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+Math.round(conversion_rate[exchange] * power) / power+'</span> '+exchange+'</span>');
+    $('#current').html('The current exchange rate is <span class="font-weight-500">1 '+base+' = <span id="rate">'+conversion_rate[exchange]+'</span> '+exchange+'</span>');
   });
 </script>
 <script type="text/javascript">
